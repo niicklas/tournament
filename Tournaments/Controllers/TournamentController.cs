@@ -276,13 +276,22 @@ namespace Tournaments.Controllers
 
 
                 SmtpClient client = new SmtpClient();
-                client.Host = "smtp.gmail.com";
-                client.Port = 587;
+                client.Host = "smtp.elasticemail.com";
+                client.Port = 2525;
                 client.UseDefaultCredentials = false;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.EnableSsl = true;
-                client.Credentials = new NetworkCredential("hillipen@gmail.com", "klasnic23");
+                client.Credentials = new NetworkCredential("niicklas@hotmail.com", "be82cd12-7867-4671-b882-a7e6ec70ef23");
                 client.Send(mail);
+
+                //SmtpClient client = new SmtpClient();
+                //client.Host = "smtp.gmail.com";
+                //client.Port = 587;
+                //client.UseDefaultCredentials = false;
+                //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //client.EnableSsl = true;
+                //client.Credentials = new NetworkCredential("hillipen@gmail.com", "");
+                //client.Send(mail);
             }
             catch (Exception)
             {

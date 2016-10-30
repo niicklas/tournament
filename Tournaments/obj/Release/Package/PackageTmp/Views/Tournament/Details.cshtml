@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 @Html.LabelFor(model => model.EmailAddress)
-                                @Html.EditorFor(model => model.EmailAddress, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.EditorFor(model => model.EmailAddress, new {htmlAttributes = new {@class = "form-control email"}})
                                 @Html.ValidationMessageFor(model => model.EmailAddress, "", new {@class = "text-danger"})
                             </div>
                         </div>
@@ -123,7 +123,8 @@
                 }
             });
             $("#emailButton").on("click", function() {
-                var emailAddress = $("#email").val();
+                var emailAddress = $(".email").val();
+                
                 var url = window.location.href;
                 $.post('@Url.Action("SendEmail", "Tournament")', { emailAddress: emailAddress, url: url }, function() {
 

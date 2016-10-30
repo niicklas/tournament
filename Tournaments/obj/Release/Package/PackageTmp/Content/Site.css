@@ -28,9 +28,7 @@ textarea {
     position: fixed;
     background-color: white;
     width: 100%;
-    z-index: 1000;
-
-    
+    z-index: 1000; 
 }
 
 @media all and (max-width: 600px) {
@@ -45,7 +43,6 @@ textarea {
 
 @media all and (max-width: 500px) {
     .underSchedule {
-        margin-top: 0;
-        
+        margin-top: 0;       
     }
 }
