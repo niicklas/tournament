@@ -1,0 +1,47 @@
+﻿
+@model List<Tournaments.Models.PlayerStatsViewModel>
+
+
+
+    <table class="table" id="tabell">
+        <thead>
+            <tr>
+                <th class='hidden-xs'>Player</th>
+                <th class='hidden-sm hidden-md hidden-lg'>Player</th>
+
+                <th class='hidden-xs'>Games</th>
+                <th class='hidden-sm hidden-md hidden-lg'>G</th>
+
+                <th class='hidden-xs'>Wins</th>
+                <th class='hidden-sm hidden-md hidden-lg'>W</th>
+
+                <th class='hidden-xs'>Tied</th>
+                <th class='hidden-sm hidden-md hidden-lg'>T</th>
+
+                <th class='hidden-xs'>Losses</th>
+                <th class='hidden-sm hidden-md hidden-lg'>L</th>
+
+                <th class='hidden-sm hidden-xs'>Score Forward - Score Against</th>
+                <th class='hidden-md hidden-lg'>SF - SA</th>
+
+                <th class='hidden-xs'>Points</th>
+                <th class='hidden-sm hidden-md hidden-lg'>P</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var player in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(p => player.Player.PlayerName)</td>
+                <td class='games'>@Html.DisplayFor(p => player.GamesPlayed)</td>
+                <td class='wins'>@Html.DisplayFor(p => player.Wins)</td>
+                <td class='ties'>@Html.DisplayFor(p => player.Ties)</td>
+                <td class='losses'>@Html.DisplayFor(p => player.Losses)</td>
+                <td class='scores'>@Html.DisplayFor(p => player.ScoresForward) - @Html.DisplayFor(p => player.ScoresAgainst)</td>
+                <td class='points'>@Html.DisplayFor(p => player.Points)</td>
+            </tr>
+        }
+        
+        </tbody>
+    </table>
+

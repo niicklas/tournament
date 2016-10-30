@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNet.Identity
+@model Tournaments.Models.ScheduleViewModel
+
+@{
+    var round = 1;
+    var gamesPerRound = Model.Games.Count(g => g.Round == 1);
+
+    
+}
+<div class="underSchedule">
+    <div class="form-group">
+        <hr />
+        <h4>Round 1</h4>
+    </div>
+    @for (var i = 0; i < Model.Games.Count(); i++)
+    {
+        if (i > 0 && Model.Games[i].Round > Model.Games[i - 1].Round)
+        {
+            <div class="form-group">
+                <hr />
+                <h4>Round @Model.Games[i].Round</h4>
+            </div>
+        }
+        <div class="form-group">
+            <div class="row gameRow" id="@Model.Games[i].Id">
+                <div class="col-md-2">
+                    @if (Model.TournamentAdministrator)
+                    {
+                        @Html.EditorFor(model => model.Games[i].HomePlayerScore, new { htmlAttributes = new { @class = "form-control homeScore" } })
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.Games[i].HomePlayerScore, new { htmlAttributes = new { @class = "form-control homeScore", disabled = "disabled" } })
+                    }
+                   
+                    @Html.DisplayFor(model => model.Players.Find(p => p.Id == model.Games[i].HomePlayerId).PlayerName)
+                </div>
+                <div class="col-md-1">
+                    <h4 class="img-circle">VS</h4>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.TournamentAdministrator)
+                    {
+                        @Html.EditorFor(model => model.Games[i].AwayPlayerScore, new {htmlAttributes = new {@class = "form-control awayScore"}})
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.Games[i].AwayPlayerScore, new { htmlAttributes = new { @class = "form-control awayScore", disabled = "disabled" } })
+                    }
+
+                    @Html.DisplayFor(model => model.Players.Find(p => p.Id == model.Games[i].AwayPlayerId).PlayerName)
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

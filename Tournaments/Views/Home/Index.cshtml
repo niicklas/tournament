@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Startpage";
+    ViewBag.Description = "Create your own tournament.";
+    ViewBag.Keywords = "Torunament, Schedule, Standings";
+}
+
+<div class="jumbotron">
+    <h1>Tournament help</h1>
+    <p class="lead">This is the perfect tool if you want to challenge your friends in a tournament of pretty much anything.</p>
+    <p class="lead">To save your tournament please register and sign in! If you just want to try and create one tournament, press the "Create Tournament" button</p>
+    @Html.ActionLink("Create a tournament", "Create", new {controller = "Tournament"}, new {@class = "btn btn-primary btn-lg"})
+    @*<p><a href="" class="btn btn-primary btn-lg">Create a tournament &raquo;</a></p>*@
+</div>

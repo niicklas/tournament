@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=PC-NIH\SQLEXPRESS;AttachDbFilename=|DataDirectory|\aspnet-Tournaments-20161014012015.mdf;Initial Catalog=Tournaments;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\Github\\Tournaments\\Tournaments\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="TournamentContext-Web.config Connection String" description="TournamentContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=PC-NIH\SQLEXPRESS;Initial Catalog=Tournaments;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\Github\\Tournaments\\Tournaments\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TournamentContext']/@connectionString" />
+  </parameter>
+</parameters>

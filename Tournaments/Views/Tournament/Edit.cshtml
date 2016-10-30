@@ -1,0 +1,50 @@
+﻿@model Tournaments.Models.Tournament
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Description = "Edit tournament name";
+    ViewBag.Keywords = "Tournament, Edit";
+}
+<fieldset>
+    @*<legend>Edit form</legend>*@
+    <h2>Edit</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Tournament</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.NumberOfMeetings)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TournamentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TournamentName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TournamentName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <div>
+        @Html.ActionLink("Back to tournament", "Details", new { id = Model.Id })
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</fieldset>
+

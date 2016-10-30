@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="TournamentHelp" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Projects\\Github\\Tournaments\\Tournaments\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Projects\\Github\\Tournaments\\Tournaments\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=nicklas.database.windows.net;Initial Catalog=tournaments;User ID=niicklas;Password=K23lasnic" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\Github\\Tournaments\\Tournaments\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="TournamentContext-Web.config Connection String" description="" value="Data Source=nicklas.database.windows.net;Initial Catalog=TournamentHelp;Integrated Security=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\Github\\Tournaments\\Tournaments\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TournamentContext']/@connectionString" />
+  </parameter>
+</parameters>

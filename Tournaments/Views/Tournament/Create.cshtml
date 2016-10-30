@@ -1,0 +1,93 @@
+﻿@model Tournaments.Models.TournamentCreateViewModel
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Description = "Create a tournament";
+    ViewBag.Keywords = "Tournament, Create";
+}
+
+<h2>Create a new tournament</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <fieldset>
+                @*<legend>Tournament specifiks</legend>*@
+                <hr/>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tournament.TournamentName, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Tournament.TournamentName, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Tournament.TournamentName, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tournament.NumberOfMeetings, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Tournament.NumberOfMeetings, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Tournament.NumberOfMeetings, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AmountOfTeams, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.AmountOfTeams, new {htmlAttributes = new {@class = "form-control nrOfTeams"}})
+                        @Html.ValidationMessageFor(model => model.AmountOfTeams, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" id="nextButton" data-loading-text="Loading..." class="btn btn-primary">Next</button>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                @*<legend>Player names</legend>*@
+                <div class="form-group">
+                    <div class="playerNameInput-placeholder">
+                    </div>
+                </div>
+
+                <div class="form-group" id="createButton">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </fieldset>
+</div>
+
+}
+
+
+
+<div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#createButton").hide();
+
+        $("#nextButton").on("click", function() {
+            var nrOfTeams = $(".nrOfTeams").val();
+
+            var $btn = $(this).button('loading');
+
+            $.get('@Url.Action("PlayerCreatePartial", "Tournament")', { nrOfTeams: nrOfTeams }, function (data) {
+                $('.playerNameInput-placeholder').html(data);
+                $btn.button('reset');
+                $("#createButton").show();
+            });
+        });
+        });
+</script>

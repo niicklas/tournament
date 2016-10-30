@@ -1,0 +1,141 @@
+﻿@using Microsoft.AspNet.Identity
+@model Tournaments.Models.TournamentDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Tournament.TournamentName;
+    ViewBag.Description = "Standings and schedule for the tournament: " + Model.Tournament.TournamentName;
+    ViewBag.Keywords = "Tournament, Schedule, " + Model.Tournament.TournamentName + ", Standings";
+}
+
+<fieldset>
+    @*<legend>Email modal</legend>*@
+    <div id="sendEmail-modal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            @using (Html.BeginForm())
+            {
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">
+                            Send tournament link
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.EmailAddress)
+                                @Html.EditorFor(model => model.EmailAddress, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.EmailAddress, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="emailButton" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+
+    </div>
+
+</fieldset>
+
+<fieldset>
+    @*<legend>Standings partial</legend>*@
+    <div class="fixed container">
+        <div class="row">
+                <h2><b>Tournament:</b> @Html.DisplayFor(model => model.Tournament.TournamentName)</h2>
+                @if (Model.Schedule.TournamentAdministrator)
+            {
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Tournament.Id, userId = Model.Tournament.UserId })
+                    <p></p>
+                }
+
+                <a id="sendEmail">Send tournament link to a friend</a>
+                <div>
+                    <hr />
+                </div>
+                <div class="form-group">
+                    <div id="tableField">
+                        @Html.Partial("StandingsPartial", Model.Standings)
+                    </div>
+                </div>
+            </div>
+        </div>
+</fieldset>
+
+    <fieldset>
+        @*<legend>Schedule partial</legend>*@
+        <div class="form-group ">
+            <div id="scheduleField">
+                @Html.Partial("SchedulePartial", Model.Schedule)
+            </div>
+        </div>
+    </fieldset>
+
+    @*<p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".layout-footer").remove();
+
+            $(".awayScore").change(function () {
+                var homeScore = $(this).closest(".gameRow").find(".homeScore").val();
+                var awayScore = $(this).val();
+                var gameId = $(this).closest(".gameRow").attr('id');
+                var tournamentId = @Model.Tournament.Id;
+
+                if (awayScore == "" || homeScore == "") {
+                    $.get('@Url.Action("StandingsPartial", "Tournament")', { tournamentId: tournamentId, gameId: gameId }, function (data) {
+                        $('#tableField').html(data);
+                    });
+                } else {
+                    $.get('@Url.Action("StandingsPartial", "Tournament")', { homeScore: homeScore, awayScore: awayScore, tournamentId: tournamentId, gameId: gameId }, function (data) {
+                        $('#tableField').html(data);
+                    });
+                }
+
+            });
+            $(".homeScore").change(function() {
+                var awayScore = $(this).closest(".gameRow").find(".awayScore").val();
+                var homeScore = $(this).val();
+                var gameId = $(this).closest(".gameRow").attr('id');
+                var tournamentId = @Model.Tournament.Id;
+
+                if (awayScore == "" || homeScore == "") {
+                    $.get('@Url.Action("StandingsPartial", "Tournament")', { tournamentId: tournamentId, gameId: gameId }, function (data) {
+                        $('#tableField').html(data);
+                    });
+                } else {
+                    $.get('@Url.Action("StandingsPartial", "Tournament")', { homeScore: homeScore, awayScore: awayScore, tournamentId: tournamentId, gameId: gameId }, function (data) {
+                        $('#tableField').html(data);
+                    });
+                }
+            });
+            $("#emailButton").on("click", function() {
+                var emailAddress = $("#email").val();
+                var url = window.location.href;
+                $.post('@Url.Action("SendEmail", "Tournament")', { emailAddress: emailAddress, url: url }, function() {
+
+                });
+                $("#sendEmail-modal").modal("hide");
+            });
+
+            //Events
+            $("#sendEmail").on("click", function (e) {
+                e.preventDefault();
+                $("#sendEmail-modal").modal("show");
+            });
+
+        });
+    </script>

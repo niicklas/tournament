@@ -1,0 +1,60 @@
+﻿
+@model Tournaments.Models.PlayerCreateViewModel
+
+
+@*@if (Model.ExistingPlayers.Any())
+{
+    for (var j = 0; j < Model.NewPlayerList.Count; j++)
+    {
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="playerChoice">Choose player @(j+1) </label>
+            <select class="form-control col-md-10 playerChoice" name="playerIds">
+                <option value="0">Choose a player</option>
+                <option value="1">Create a new player</option>
+                @for (int i = 0; i < Model.ExistingPlayers.Count; i++)
+                {
+                    <option class="@Model.ExistingPlayers[i].Id" value="@Model.ExistingPlayers[i].Id">@Model.ExistingPlayers[i].PlayerName</option>
+                }
+            </select>
+            <div class="newPlayer">
+                <label class="col-sm-2 control-label" for="playerChoice">Create player @(j+1) </label>
+
+                @Html.EditorFor(model => model.NewPlayerList[j], new { htmlAttributes = new { @class = "form-control", id = "nrOfTeams" } })
+                @Html.ValidationMessageFor(model => model.NewPlayerList[j], "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+}*@
+@if (Model.NewPlayerList.Any())
+{
+    for (var i = 0; i < Model.NewPlayerList.Count; i++)
+    {
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="playerChoice">Create player @(i + 1) </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NewPlayerList[i], new { htmlAttributes = new { @class = "form-control", id = "nrOfTeams" } })
+                @Html.ValidationMessageFor(model => model.NewPlayerList[i], "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+
+}
+
+@*<script type="text/javascript">
+    $(document).ready(function() {
+        $(this).next(".newPlayer").hide();
+        $(this).next(".newPlayer").attr("disabled", true);
+
+        $(".playerChoice").on("change", function () {
+            if (this.value =="1") {
+                
+                $(this).next(".newPlayer").attr("disabled", false);
+                $(this).next(".newPlayer").show();
+            } else {
+                $(this).next(".newPlayer").hide();
+                $(this).next(".newPlayer").attr("disabled", true);
+            }
+        });
+
+    });
+</script>*@
